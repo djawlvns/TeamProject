@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dw.teamproject.model.Form;
+import com.dw.teamproject.model.Products;
 import com.dw.teamproject.model.Purchase;
 import com.dw.teamproject.service.FunctionService;
 
@@ -40,46 +40,46 @@ public class TeamProjectController {
 
 	@PostMapping
 //	사이트 생성
-	public ResponseEntity<Form> saveForm(
-			@RequestBody Form form){
-		return new ResponseEntity<Form>(
-				functionService.saveForm(form),
+	public ResponseEntity<Products> saveProducts(
+			@RequestBody Products products){
+		return new ResponseEntity<Products>(
+				functionService.saveProducts(products),
 				HttpStatus.CREATED
 				);
 	}
 	
 	@GetMapping
 //	요청을 입력받을때 사용하는 겟메핑
-	public ResponseEntity<List<Form>> getAllForms(){
+	public ResponseEntity<List<Products>> getAllProducts(){
 //		http 요청 또는 응답에 해당하는 컴포넌트를 포함한 리스폰스엔티티를 사용 배열안에 게임을 넣어 순차적으로 보이게 하기 위함
-		List<Form> form = functionService.getAllForms();
-		return new ResponseEntity<>(form,HttpStatus.OK);
+		List<Products> products = functionService.getAllProducts();
+		return new ResponseEntity<>(products,HttpStatus.OK);
 	}
 	
 	@GetMapping("{id}")
-	public ResponseEntity<Form> getFormById(
+	public ResponseEntity<Products> getProductsById(
 			@PathVariable("id") long id){
 //			주소 뒤에 붙힐 id 값을 무슨 형식으로 넣을지 정하는 부분
-	return new ResponseEntity<Form>(
-			functionService.getFormById(id),HttpStatus.OK);
+	return new ResponseEntity<Products>(
+			functionService.getProductsById(id),HttpStatus.OK);
 	}
 	
 	@PutMapping("{id}")
 //	정보를 입력할때 사용하는 풋매핑
-	public ResponseEntity<Form> updateFormById(
-			@RequestBody Form form, @PathVariable long id)
+	public ResponseEntity<Products> updateProductsById(
+			@RequestBody Products products, @PathVariable long id)
 //			비동기방식(화면전환 없이 이루어지는 동작)을 사용하기 위해 먼저 요청 그후 응답 형식으로 이루어짐
 			{
-		return new ResponseEntity<Form>(
-				functionService.updateFormById(form, id),
+		return new ResponseEntity<Products>(
+				functionService.updateProductsById(products, id),
 				HttpStatus.OK);
 	}
 	
 	@DeleteMapping("{id}")
 //	게임 삭제
 	public ResponseEntity<String> deleteTeamById(@PathVariable long id){
-		functionService.deleteForm(id);
-		return new ResponseEntity<String>("Form deletd successfully",HttpStatus.OK);
+		functionService.deleteProducts(id);
+		return new ResponseEntity<String>("Products deletd successfully",HttpStatus.OK);
 	}
 
 	@PostMapping("purchase")
@@ -106,8 +106,8 @@ public class TeamProjectController {
 	}
 	
 	@GetMapping("search")
-    public ResponseEntity<List<Form>> searchTeams(@RequestParam("keyword") String keyword) {
-        List<Form> searchResults = functionService.searchForms(keyword);
+    public ResponseEntity<List<Products>> searchTeams(@RequestParam("keyword") String keyword) {
+        List<Products> searchResults = functionService.searchProducts(keyword);
         return new ResponseEntity<>(searchResults, HttpStatus.OK);
     }
 	

@@ -4,16 +4,16 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.dw.teamproject.model.Form;
-import com.dw.teamproject.repository.FormRepository;
+import com.dw.teamproject.model.Products;
+import com.dw.teamproject.repository.ProductsRepository;
 
 
 public class SearchService {
 	
 	@Autowired
-	private FormRepository formRepository;
+	private ProductsRepository productsRepository;
 
-	public List<Form> search(String keyword) {
-        return formRepository.searchForms(keyword);
+	public List<Products> search(String keyword) {
+        return productsRepository.searchproducts(keyword);
     }
 }

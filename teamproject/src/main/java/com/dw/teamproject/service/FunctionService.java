@@ -3,26 +3,26 @@ package com.dw.teamproject.service;
 import java.util.List;
 
 //import com.dw.teamproject.dto.SearchDto;
-import com.dw.teamproject.model.Form;
+import com.dw.teamproject.model.Products;
 import com.dw.teamproject.model.Purchase;
 
 public interface FunctionService {
 
 //	저장
-	Form saveForm(Form team);
+	Products saveProducts(Products team);
 //	목록
-	List<Form> getAllForms();
+	List<Products> getAllProducts();
 //	
-	Form getFormById(long id);
+	Products getProductsById(long id);
 	
-	Form updateFormById(Form form, long id);
+	Products updateProductsById(Products products, long id);
 	
-	void deleteForm(long id);
+	void deleteProducts(long id);
 	
 	Purchase savePurchase(Purchase purchase);
 	List<Purchase> getAllPurchase();
 	
-	List<Form> searchForms(String keyword);
+	List<Products> searchProducts(String keyword);
 	
 	
 	

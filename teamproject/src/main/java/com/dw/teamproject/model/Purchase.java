@@ -16,7 +16,7 @@ public class Purchase {
 	private long id;
 	
 	@ManyToOne
-	private Form form;
+	private Products form;
 	
 	private int quantity;
 
@@ -24,7 +24,7 @@ public class Purchase {
 		super();
 	}
 
-	public Purchase(long id, Form form, int quantity) {
+	public Purchase(long id, Products form, int quantity) {
 		super();
 		this.id = id;
 		this.form = form;
@@ -39,11 +39,11 @@ public class Purchase {
 		this.id = id;
 	}
 
-	public Form getTeamProject() {
+	public Products getTeamProject() {
 		return form;
 	}
 
-	public void setTeamProject(Form teamProject) {
+	public void setTeamProject(Products teamProject) {
 		this.form = teamProject;
 	}
 
