@@ -5,9 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+import com.dw.teamproject.model.BestItem;
 import com.dw.teamproject.model.Products;
 import com.dw.teamproject.model.Purchase;
+import com.dw.teamproject.repository.BestItemRepository;
 import com.dw.teamproject.repository.ProductsRepository;
 import com.dw.teamproject.repository.PurchaseRepository;
 import com.dw.teamproject.service.FunctionService;
@@ -16,16 +17,19 @@ import com.dw.teamproject.service.FunctionService;
 public class FunctionServiceImpl implements FunctionService {
 	
 	private ProductsRepository productsRepository;
-	private PurchaseRepository purchaseRepository; 
+	private PurchaseRepository purchaseRepository;
+	private BestItemRepository bestitemRepository;
 
 //	리포지토리에 연결
 
 	@Autowired
 //	의존성 주입
-	public FunctionServiceImpl(ProductsRepository productsRepository, PurchaseRepository purchaseRepository ) {
+	public FunctionServiceImpl(ProductsRepository productsRepository, PurchaseRepository purchaseRepository,
+			BestItemRepository bestitemRepository) {
 		super();
 		this.productsRepository = productsRepository;
 		this.purchaseRepository = purchaseRepository;
+		this.bestitemRepository = bestitemRepository;
 	}
 
 	@Override
@@ -34,10 +38,19 @@ public class FunctionServiceImpl implements FunctionService {
 		return productsRepository.save(products);
 	}
 	
+	@Override
+	public BestItem saveBestItem(BestItem bestitem) {
+		return bestitemRepository.save(bestitem);
+	}
 
 	@Override
 	public List<Products> getAllProducts(){
 		return productsRepository.findAll();
+	}
+	
+	@Override
+	public List<BestItem> getAllBestItems(){
+		return bestitemRepository.findAll();
 	}
 	
 	@Override
@@ -47,11 +60,15 @@ public class FunctionServiceImpl implements FunctionService {
 	}
 	
 	@Override
+	public BestItem getBestItemById(long id) {
+		return bestitemRepository.findById(id).orElseThrow(()->null);
+	}
+	
+	@Override
 	public Products updateProductsById(Products products,long id) {
 		Products existingproducts = productsRepository.findById(id)
 				.orElseThrow(()-> null);
 		existingproducts.setMainimg(products.getMainimg());
-		existingproducts.setSubimg(products.getSubimg());
 		existingproducts.setName(products.getName());
 		existingproducts.setSale(products.getSale());
 		existingproducts.setPrice(products.getPrice());
@@ -59,10 +76,28 @@ public class FunctionServiceImpl implements FunctionService {
 		productsRepository.save(existingproducts);
 		return existingproducts;
 	}
+	
+	@Override
+	public BestItem updateBestItemById(BestItem bestitem, long id) {
+		BestItem existinbestitem = bestitemRepository.findById(id)
+				.orElseThrow(()-> null);
+		existinbestitem.setMainimg(bestitem.getMainimg());
+		existinbestitem.setName(bestitem.getName());
+		existinbestitem.setSale(bestitem.getSale());
+		existinbestitem.setPrice(bestitem.getPrice());
+		
+		bestitemRepository.save(existinbestitem);
+		return existinbestitem;
+	}
 
 	public void deleteProducts(long id) {
 		productsRepository.findById(id).orElseThrow(()-> null);
 		productsRepository.deleteById(id);
+	}
+	
+	public void deleteBestItem(long id) {
+		bestitemRepository.findById(id).orElseThrow(()->null);
+		bestitemRepository.deleteById(id);
 	}
 	
 	@Override

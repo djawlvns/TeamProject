@@ -1,6 +1,5 @@
 package com.dw.teamproject.controller;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,70 +15,67 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dw.teamproject.model.Products;
+import com.dw.teamproject.model.BestItem;
 import com.dw.teamproject.model.Purchase;
 import com.dw.teamproject.service.FunctionService;
 
-
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/bestitem")
 @CrossOrigin(origins="http://localhost:3000", methods = {RequestMethod.GET,RequestMethod.POST})
-public class TeamProjectController {
+public class BestItemController {
 
 	private FunctionService functionService;
 	
 	@Autowired
-//	의존성 주입
-	public TeamProjectController(FunctionService functionService) {
+	public BestItemController(FunctionService functionService) {
 		super();
 		this.functionService = functionService;
 	}
-
+	
 	@PostMapping
 //	사이트 생성
-	public ResponseEntity<Products> saveProducts(
-			@RequestBody Products products){
-		return new ResponseEntity<Products>(
-				functionService.saveProducts(products),
+	public ResponseEntity<BestItem> saveBestItem(
+			@RequestBody BestItem bestitem){
+		return new ResponseEntity<BestItem>(
+				functionService.saveBestItem(bestitem),
 				HttpStatus.CREATED
 				);
 	}
 	
 	@GetMapping
 //	요청을 입력받을때 사용하는 겟메핑
-	public ResponseEntity<List<Products>> getAllProducts(){
+	public ResponseEntity<List<BestItem>> getAllBestItem(){
 //		http 요청 또는 응답에 해당하는 컴포넌트를 포함한 리스폰스엔티티를 사용 배열안에 게임을 넣어 순차적으로 보이게 하기 위함
-		List<Products> products = functionService.getAllProducts();
-		return new ResponseEntity<>(products,HttpStatus.OK);
+		List<BestItem> bestitem = functionService.getAllBestItems();
+		return new ResponseEntity<>(bestitem,HttpStatus.OK);
 	}
 	
 	@GetMapping("{id}")
-	public ResponseEntity<Products> getProductsById(
+	public ResponseEntity<BestItem> getBestItemById(
 			@PathVariable("id") long id){
 //			주소 뒤에 붙힐 id 값을 무슨 형식으로 넣을지 정하는 부분
-	return new ResponseEntity<Products>(
-			functionService.getProductsById(id),HttpStatus.OK);
+	return new ResponseEntity<BestItem>(
+			functionService.getBestItemById(id),HttpStatus.OK);
 	}
 	
 	@PutMapping("{id}")
 //	정보를 입력할때 사용하는 풋매핑
-	public ResponseEntity<Products> updateProductsById(
-			@RequestBody Products products, @PathVariable long id)
+	public ResponseEntity<BestItem> updateBestItemById(
+			@RequestBody BestItem bestitem, @PathVariable long id)
 //			비동기방식(화면전환 없이 이루어지는 동작)을 사용하기 위해 먼저 요청 그후 응답 형식으로 이루어짐
 			{
-		return new ResponseEntity<Products>(
-				functionService.updateProductsById(products, id),
+		return new ResponseEntity<BestItem>(
+				functionService.updateBestItemById(bestitem, id),
 				HttpStatus.OK);
 	}
 	
 	@DeleteMapping("{id}")
 //	게임 삭제
-	public ResponseEntity<String> deleteTeamById(@PathVariable long id){
-		functionService.deleteProducts(id);
-		return new ResponseEntity<String>("Products deletd successfully",HttpStatus.OK);
+	public ResponseEntity<String> deleteBestItemById(@PathVariable long id){
+		functionService.deleteBestItem(id);
+		return new ResponseEntity<String>("BestItem deletd successfully",HttpStatus.OK);
 	}
 
 	@PostMapping("purchase")
@@ -98,18 +94,5 @@ public class TeamProjectController {
 		}
 		return new ResponseEntity<List<Purchase>>(savedPurchaseList, HttpStatus.OK);
 	}
-	
-	@GetMapping("purchase")
-	public ResponseEntity<List<Purchase>> getAllPurchase(){
-		return new ResponseEntity<List<Purchase>>(
-				functionService.getAllPurchase(), HttpStatus.OK);
-	}
-	
-	@GetMapping("search")
-    public ResponseEntity<List<Products>> searchTeams(@RequestParam("keyword") String keyword) {
-        List<Products> searchResults = functionService.searchProducts(keyword);
-        return new ResponseEntity<>(searchResults, HttpStatus.OK);
-    }
-	
 	
 }

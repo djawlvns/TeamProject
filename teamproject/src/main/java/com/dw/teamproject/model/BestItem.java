@@ -8,9 +8,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name= "products")
-public class Products {
-
+@Table(name = "bestitem")
+public class BestItem {
 	
 	
 	@Id
@@ -30,22 +29,18 @@ public class Products {
 	private int price;
 	
 	
-	private String searchproducts;
-
-	
-	public Products() {
+	public BestItem() {
 		super();
 	}
 
 
-	public Products(long id, String mainimg, String name, String sale, int price, String searchproducts) {
+	public BestItem(long id, String mainimg, String name, String sale, int price) {
 		super();
 		this.id = id;
 		this.mainimg = mainimg;
 		this.name = name;
 		this.sale = sale;
 		this.price = price;
-		this.searchproducts = searchproducts;
 	}
 
 
@@ -99,16 +94,4 @@ public class Products {
 	}
 
 
-	public String getSearchProducts() {
-		return searchproducts;
-	}
-
-
-	public void setSearchProducts(String searchproducts) {
-		this.searchproducts = searchproducts;
-	}
-
-	
-	
-	
 }

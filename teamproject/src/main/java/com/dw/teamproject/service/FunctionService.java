@@ -2,6 +2,7 @@ package com.dw.teamproject.service;
 
 import java.util.List;
 
+import com.dw.teamproject.model.BestItem;
 //import com.dw.teamproject.dto.SearchDto;
 import com.dw.teamproject.model.Products;
 import com.dw.teamproject.model.Purchase;
@@ -9,15 +10,20 @@ import com.dw.teamproject.model.Purchase;
 public interface FunctionService {
 
 //	저장
-	Products saveProducts(Products team);
+	Products saveProducts(Products products);
+	BestItem saveBestItem(BestItem bestitem);
 //	목록
 	List<Products> getAllProducts();
+	List<BestItem> getAllBestItems();
 //	
 	Products getProductsById(long id);
+	BestItem getBestItemById(long id);
 	
 	Products updateProductsById(Products products, long id);
+	BestItem updateBestItemById(BestItem bestitem, long id);
 	
 	void deleteProducts(long id);
+	void deleteBestItem(long id);
 	
 	Purchase savePurchase(Purchase purchase);
 	List<Purchase> getAllPurchase();
