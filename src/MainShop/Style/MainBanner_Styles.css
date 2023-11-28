@@ -1,0 +1,38 @@
+.swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  z-index: 1;
+}
+
+.swiper-scrollbar.swiper-scrollbar-horizontal {
+  position: absolute;
+  width: 80%;
+  height: 3px;
+  left: 10%;
+  bottom: 50px;
+  padding: 0 0;
+  margin: 0;
+
+  border-radius: 1px;
+
+  background: grey;
+  z-index: 50;
+}
+.swiper-scrollbar-drag {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  background: white;
+
+  border-radius: 10px;
+  left: 0;
+  top: 0;
+}
