@@ -1,13 +1,9 @@
 package com.dw.teamproject.model;
 
-import java.time.LocalDate;
 
-import com.dw.teamproject.status.Gender;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,7 +15,7 @@ import jakarta.persistence.UniqueConstraint;
 @Entity
 @Table(name = "member",
 		uniqueConstraints = {@UniqueConstraint(name = "uk_member_login_id",
-		columnNames = {"loginId"}
+		columnNames = {"username"}
 												)
 							})
 public class Member {
@@ -29,7 +25,7 @@ public class Member {
 	private Long id;
 	
 	@Column(nullable = false, length = 30 ,updatable = false)
-	private String loginId;
+	private String username;
 	
 	@Column(nullable = false, length = 100)
 	private String password;
@@ -40,11 +36,10 @@ public class Member {
 	
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
-	private LocalDate birthDate;
+	private String birthDate;
 	
 	@Column(nullable = false, length = 5)
-	@Enumerated(EnumType.STRING)
-	private Gender gender;
+	private String gender;
 	
 	@Column(nullable = false, length = 30)
 	private String email;
@@ -53,11 +48,11 @@ public class Member {
 		super();
 	}
 
-	public Member(Long id, String loginId, String password, String name, LocalDate birthDate, Gender gender,
+	public Member(Long id, String username, String password, String name, String birthDate, String gender,
 			String email) {
 		super();
 		this.id = id;
-		this.loginId = loginId;
+		this.username = username;
 		this.password = password;
 		this.name = name;
 		this.birthDate = birthDate;
@@ -73,12 +68,12 @@ public class Member {
 		this.id = id;
 	}
 
-	public String getLoginId() {
-		return loginId;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setLoginId(String loginId) {
-		this.loginId = loginId;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -97,19 +92,19 @@ public class Member {
 		this.name = name;
 	}
 
-	public LocalDate getBirthDate() {
+	public String getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(LocalDate birthDate) {
+	public void setBirthDate(String birthDate) {
 		this.birthDate = birthDate;
 	}
 
-	public Gender getGender() {
+	public String getGender() {
 		return gender;
 	}
 
-	public void setGender(Gender gender) {
+	public void setGender(String gender) {
 		this.gender = gender;
 	}
 
@@ -120,4 +115,7 @@ public class Member {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+
+
 }

@@ -25,15 +25,15 @@ public class MemberService {
 	
 	public String signUp(MemberDto memberDto) {
 		
-		Member member = memberRepository.findByLoginId(memberDto.getLoginId());
+		Member member = memberRepository.findByUsername(memberDto.getUsername());
 		if(member != null) {
 //			return "이미 등록된 ID입니다.";
-			throw new InvalidInputException("loginId", "이미 등록된 ID입니다.");
+			throw new InvalidInputException("username", "이미 등록된 ID입니다.");
 		}
 		
 		member = new Member(
 				null,
-				memberDto.getLoginId(),
+				memberDto.getUsername(),
 				memberDto.getPassword(),
 				memberDto.getName(),
 				memberDto.getBirthDate(),
@@ -44,9 +44,9 @@ public class MemberService {
 		return "회원가입이 완료되었습니다.";
 	}
 	public String login(MemberLoginDto memberLoginDto) {
-		Member member = memberRepository.findByLoginId(memberLoginDto.getLoginId());
+		Member member = memberRepository.findByUsername(memberLoginDto.getUsername());
 		if(member != null && member.getPassword().matches(memberLoginDto.getPassword())) {
-			return member.getLoginId();
+			return member.getUsername();
 		} else {
 			throw new InvalidInputException("loginId","ID 또는 password가 올바르지 않습니다.");
 		}

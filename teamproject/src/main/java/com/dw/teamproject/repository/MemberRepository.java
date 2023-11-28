@@ -6,5 +6,5 @@ import com.dw.teamproject.model.Member;
 
 public interface MemberRepository extends JpaRepository<Member, Long>{
 	
-	Member findByLoginId(String loginId);
+	Member findByUsername(String username);
 }

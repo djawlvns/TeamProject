@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dw.teamproject.model.BestItem;
+import com.dw.teamproject.model.Lookbook;
 import com.dw.teamproject.model.Products;
 import com.dw.teamproject.model.Purchase;
 import com.dw.teamproject.repository.BestItemRepository;
+import com.dw.teamproject.repository.LookbookRepository;
 import com.dw.teamproject.repository.ProductsRepository;
 import com.dw.teamproject.repository.PurchaseRepository;
 import com.dw.teamproject.service.FunctionService;
@@ -19,18 +21,21 @@ public class FunctionServiceImpl implements FunctionService {
 	private ProductsRepository productsRepository;
 	private PurchaseRepository purchaseRepository;
 	private BestItemRepository bestitemRepository;
+	private LookbookRepository lookbookRepository;
 
 //	리포지토리에 연결
 
 	@Autowired
 //	의존성 주입
 	public FunctionServiceImpl(ProductsRepository productsRepository, PurchaseRepository purchaseRepository,
-			BestItemRepository bestitemRepository) {
+			BestItemRepository bestitemRepository, LookbookRepository lookbookRepository) {
 		super();
 		this.productsRepository = productsRepository;
 		this.purchaseRepository = purchaseRepository;
 		this.bestitemRepository = bestitemRepository;
+		this.lookbookRepository = lookbookRepository;
 	}
+
 
 	@Override
 	public Products saveProducts(Products products) {
@@ -38,9 +43,15 @@ public class FunctionServiceImpl implements FunctionService {
 		return productsRepository.save(products);
 	}
 	
+
 	@Override
 	public BestItem saveBestItem(BestItem bestitem) {
 		return bestitemRepository.save(bestitem);
+	}
+	
+	@Override
+	public Lookbook saveLookbook(Lookbook lookbook) {
+		return lookbookRepository.save(lookbook);
 	}
 
 	@Override
@@ -54,6 +65,11 @@ public class FunctionServiceImpl implements FunctionService {
 	}
 	
 	@Override
+	public List<Lookbook> getAllLookbooks(){
+		return lookbookRepository.findAll();
+	}
+	
+	@Override
 	public Products getProductsById(long id) {
 		return productsRepository.findById(id).orElseThrow(()->
 		null);
@@ -62,6 +78,11 @@ public class FunctionServiceImpl implements FunctionService {
 	@Override
 	public BestItem getBestItemById(long id) {
 		return bestitemRepository.findById(id).orElseThrow(()->null);
+	}
+	
+	@Override
+	public Lookbook getLookbookById(long id) {
+		return lookbookRepository.findById(id).orElseThrow(()->null);
 	}
 	
 	@Override
@@ -88,6 +109,18 @@ public class FunctionServiceImpl implements FunctionService {
 		
 		bestitemRepository.save(existinbestitem);
 		return existinbestitem;
+	}
+	
+	@Override
+	public Lookbook updateLookbookById(Lookbook lookbook, long id) {
+		Lookbook existinbLookbook = lookbookRepository.findById(id)
+				.orElseThrow(() -> null);
+		existinbLookbook.setImg(lookbook.getImg());
+		existinbLookbook.setTitle(lookbook.getTitle());
+		existinbLookbook.setDate(lookbook.getDate());
+		
+		lookbookRepository.save(existinbLookbook);
+		return existinbLookbook;
 	}
 
 	public void deleteProducts(long id) {

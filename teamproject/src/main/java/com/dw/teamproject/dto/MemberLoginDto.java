@@ -3,7 +3,7 @@ package com.dw.teamproject.dto;
 public class MemberLoginDto {
 
 	
-	private String loginId;
+	private String username;
 	
 
 	private String password;
@@ -15,24 +15,22 @@ public class MemberLoginDto {
 	}
 
 
-
-	public MemberLoginDto(String loginId, String password) {
+	public MemberLoginDto(String username, String password) {
 		super();
-		this.loginId = loginId;
+		this.username = username;
 		this.password = password;
 	}
 
 
-	public String getLoginId() {
-		return loginId;
+
+	public String getUsername() {
+		return username;
 	}
 
 
-
-	public void setLoginId(String loginId) {
-		this.loginId = loginId;
+	public void setUsername(String username) {
+		this.username = username;
 	}
-
 
 
 	public String getPassword() {
